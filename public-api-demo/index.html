@@ -1,0 +1,45 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Static Template</title>
+  </head>
+  <body>
+    <p id="demo"></p>
+    <input type="search" id="searchString" />
+    <button type="button" onclick="loadDoc()">Leia Sipsik</button>
+    <script>
+      function getTitles(bookDocs) {
+        return bookDocs.map(obj => obj.title)
+        //let titlesArray = bookDocs.map(obj=>obj.title)
+        //return titlesArray.map(item => `<h1>${item}</h1>`)
+      }
+      function getAuthors(bookDocs) {
+        return bookDocs.map(obj => obj.author_name);
+      }
+      function getOutput(titles, authors) {
+        let result = []
+        for (let i = 0; i < titles.length; i++) {
+          const title = titles[i];
+          const author = authors[i]?.join(", ")
+          result.push(`<h1>${title}</h1><h5>${author}</h5>`)
+        }
+        return result
+      }
+      function loadDoc() {
+        const searchString = document.getElementById("searchString").value
+        const xtthp = new XMLHttpRequest();
+        xtthp.onload = function () {
+            console.log(this.responseText);
+            const responseObject = JSON.parse(this.responseText)
+            const titles = getTitles(responseObject.docs)
+            const authors = getAuthors(responseObject.docs)
+            document.getElementById("demo").innerHTML = getOutput(titles, authors)
+        };
+        xtthp.open("GET",`https://openlibrary.org/search.json?q=${searchString}`);
+        xtthp.send();
+      }
+    </script>
+  </body>
+</html>

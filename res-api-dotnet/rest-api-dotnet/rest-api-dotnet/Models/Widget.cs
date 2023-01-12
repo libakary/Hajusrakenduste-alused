@@ -1,4 +1,4 @@
-﻿namespace rest_api_dotnet
+﻿namespace rest_api_dotnet.Models
 {
     public class Widget
     {

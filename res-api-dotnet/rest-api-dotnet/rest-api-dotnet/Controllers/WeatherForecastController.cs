@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using rest_api_dotnet.Models;
 
 namespace rest_api_dotnet.Controllers
 {
